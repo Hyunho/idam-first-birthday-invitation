@@ -27,7 +27,7 @@ const Hero = () => {
                     boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
                 }}>
                     <img
-                        src={`${import.meta.env.BASE_URL}images/idam.png`}
+                        src={`${import.meta.env.BASE_URL}images/idam.jpg`}
                         alt="이담"
                         style={{
                             width: '100%',
