@@ -45,7 +45,7 @@ const Hero = () => {
                     2026. 04. 25 (토)
                 </p>
                 <p style={{ fontSize: '1.1rem', color: '#6d6d6d' }}>
-                    오전 12시
+                    오후 12시
                 </p>
             </motion.div>
         </section>

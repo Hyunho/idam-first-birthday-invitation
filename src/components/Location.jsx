@@ -13,16 +13,15 @@ const Location = () => {
                 <h3 style={{ marginBottom: '2rem' }}>오시는 길</h3>
 
                 <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: 'var(--text-color)' }}>
-                    거궁 한정식
+                    거궁 하남점
                 </h2>
 
                 <p style={{ marginBottom: '2rem', color: '#6d6d6d' }}>
-                    경기 광주시 초월읍 충효관로 4<br />
-                    (지번: 경기 광주시 초월읍 대쌍령리 407)
+                    경기 하남시 미사대로 456 라파르코 4층
                 </p>
 
                 <a
-                    href="https://map.naver.com/p/search/%EA%B1%B0%EA%B6%81%ED%95%9C%EC%A0%95%EC%8B%9D"
+                    href="https://naver.me/55rmRzzt"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
