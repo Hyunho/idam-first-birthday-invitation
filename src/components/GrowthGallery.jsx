@@ -18,11 +18,14 @@ const GrowthGallery = () => {
 
     // Add Day 10 to 280
     for (let day = 10; day <= 280; day += 10) {
-        const dayStr = day.toString().padStart(3, '0');
+        // Special case: Day 250 is actually Day 251
+        const currentDay = (day === 250) ? 251 : day;
+        const dayStr = currentDay.toString().padStart(3, '0');
+
         milestones.push({
-            id: `day${day}`,
-            label: `D+${day}`,
-            date: `${day} Days`,
+            id: `day${currentDay}`,
+            label: `D+${currentDay}`,
+            date: `${currentDay} Days`,
             photos: [
                 `${import.meta.env.BASE_URL}images/growth/${dayStr}-1.jpeg`,
                 `${import.meta.env.BASE_URL}images/growth/${dayStr}-2.jpeg`
