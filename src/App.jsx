@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Hero from './components/Hero';
 import InvitationMessage from './components/InvitationMessage';
 import Timeline from './components/Timeline';
+import Gallery from './components/Gallery';
 import Location from './components/Location';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Hero />
       <InvitationMessage />
       <Timeline />
+      <Gallery />
       <Location />
 
       <footer style={{
