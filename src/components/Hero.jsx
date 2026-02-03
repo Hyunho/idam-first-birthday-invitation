@@ -17,6 +17,26 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
             >
+                <div style={{
+                    marginBottom: '2rem',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    width: '200px',
+                    height: '200px',
+                    margin: '0 auto 2rem',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                }}>
+                    <img
+                        src="/images/idam.png"
+                        alt="이담"
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                        }}
+                    />
+                </div>
+
                 <h2 style={{
                     fontSize: '1.2rem',
                     color: 'var(--secondary-color)',
