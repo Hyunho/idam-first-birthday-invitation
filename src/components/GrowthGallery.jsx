@@ -1,37 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+// Use data from configuration file
+import { growthGalleryData } from '../data/growthGalleryData';
 
 const GrowthGallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
-    // Generate milestones based on actual files in public/images/growth
-    // Day 0 (000.jpeg) + Day 10-280 (XXX-1.jpeg, XXX-2.jpeg)
-    const milestones = [];
-
-    // Add Day 0
-    milestones.push({
-        id: 'day0',
-        label: 'D+0',
-        date: 'Day One',
-        photos: [`${import.meta.env.BASE_URL}images/growth/000.jpeg`]
-    });
-
-    // Add Day 10 to 280
-    for (let day = 10; day <= 280; day += 10) {
-        // Special case: Day 250 is actually Day 251
-        const currentDay = (day === 250) ? 251 : day;
-        const dayStr = currentDay.toString().padStart(3, '0');
-
-        milestones.push({
-            id: `day${currentDay}`,
-            label: `D+${currentDay}`,
-            date: `${currentDay} Days`,
-            photos: [
-                `${import.meta.env.BASE_URL}images/growth/${dayStr}-1.jpeg`,
-                `${import.meta.env.BASE_URL}images/growth/${dayStr}-2.jpeg`
-            ]
-        });
-    }
+    const milestones = growthGalleryData;
 
     return (
         <section style={{ padding: '4rem 1.5rem', backgroundColor: '#fff', position: 'relative' }}>
@@ -43,8 +18,7 @@ const GrowthGallery = () => {
                     fontFamily: 'var(--font-serif)',
                     letterSpacing: '-0.5px'
                 }}>
-                    Vertical Growth Timeline
-                </h2>
+                    노이담의 성장일지</h2>
                 <div style={{
                     width: '30px',
                     height: '2px',
@@ -65,88 +39,126 @@ const GrowthGallery = () => {
                     zIndex: 0
                 }}></div>
 
-                {milestones.map((milestone, index) => (
-                    <motion.div
-                        key={milestone.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        style={{
-                            display: 'flex',
-                            marginBottom: '3.5rem',
-                            position: 'relative'
-                        }}
-                    >
-                        {/* Timeline Dot */}
-                        <div style={{
-                            flex: '0 0 40px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            marginRight: '1rem',
-                            zIndex: 1
-                        }}>
-                            <div style={{
-                                width: '12px',
-                                height: '12px',
-                                borderRadius: '50%',
-                                background: '#fff',
-                                border: '3px solid #d4a373',
-                                marginTop: '6px'
-                            }}></div>
-                        </div>
-
-                        {/* Content */}
-                        <div style={{ flex: 1 }}>
-                            <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'baseline' }}>
-                                <span style={{
-                                    fontSize: '1.2rem',
-                                    fontWeight: 'bold',
+                {milestones.map((item, index) => {
+                    if (item.type === 'message') {
+                        return (
+                            <motion.div
+                                key={`msg-${index}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.5 }}
+                                style={{
+                                    marginBottom: '3.5rem',
+                                    position: 'relative',
+                                    paddingLeft: '50px', // Align with content part of milestones
+                                    paddingRight: '1rem'
+                                }}
+                            >
+                                <div style={{
+                                    backgroundColor: '#fafafa',
+                                    padding: '1.5rem',
+                                    borderRadius: '12px',
+                                    border: '1px solid #eee',
                                     color: '#5d4037',
                                     fontFamily: 'var(--font-serif)',
-                                    marginRight: '0.8rem'
+                                    fontSize: '1.05rem',
+                                    lineHeight: '1.6',
+                                    fontStyle: 'italic',
+                                    position: 'relative'
                                 }}>
-                                    {milestone.label}
-                                </span>
-                                <span style={{ fontSize: '0.9rem', color: '#8d6e63' }}>
-                                    {milestone.date}
-                                </span>
+                                    <span style={{ fontSize: '1.5rem', position: 'absolute', top: '5px', left: '10px', opacity: 0.2 }}>"</span>
+                                    {item.content}
+                                    <span style={{ fontSize: '1.5rem', position: 'absolute', bottom: '0px', right: '15px', opacity: 0.2 }}>"</span>
+                                </div>
+                            </motion.div>
+                        );
+                    }
+
+                    // Default to milestone
+                    return (
+                        <motion.div
+                            key={`milestone-${index}`}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            style={{
+                                display: 'flex',
+                                marginBottom: '3.5rem',
+                                position: 'relative'
+                            }}
+                        >
+                            {/* Timeline Dot */}
+                            <div style={{
+                                flex: '0 0 40px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                marginRight: '1rem',
+                                zIndex: 1
+                            }}>
+                                <div style={{
+                                    width: '12px',
+                                    height: '12px',
+                                    borderRadius: '50%',
+                                    background: '#fff',
+                                    border: '3px solid #d4a373',
+                                    marginTop: '6px'
+                                }}></div>
                             </div>
 
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr',
-                                gap: '15px',
-                            }}>
-                                {milestone.photos.map((photo, idx) => (
-                                    <div
-                                        key={idx}
-                                        onClick={() => setSelectedImage(photo)}
-                                        style={{
-                                            borderRadius: '8px',
-                                            overflow: 'hidden',
-                                            boxShadow: '0 4px 10px rgba(0,0,0,0.08)',
-                                            // aspectRatio: '1/1', 
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        <img
-                                            src={photo}
-                                            alt={`${milestone.label}-${idx}`}
+                            {/* Content */}
+                            <div style={{ flex: 1 }}>
+                                <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'baseline' }}>
+                                    <span style={{
+                                        fontSize: '1.2rem',
+                                        fontWeight: 'bold',
+                                        color: '#5d4037',
+                                        fontFamily: 'var(--font-serif)',
+                                        marginRight: '0.8rem'
+                                    }}>
+                                        {item.label}
+                                    </span>
+                                    <span style={{ fontSize: '0.9rem', color: '#8d6e63' }}>
+                                        {item.date}
+                                    </span>
+                                </div>
+
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr',
+                                    gap: '15px',
+                                }}>
+                                    {item.photos.map((photo, idx) => (
+                                        <div
+                                            key={idx}
+                                            onClick={() => setSelectedImage(`${import.meta.env.BASE_URL}${photo}`)}
                                             style={{
-                                                width: '100%',
-                                                height: 'auto',
-                                                display: 'block',
-                                                transition: 'transform 0.3s ease'
+                                                borderRadius: '8px',
+                                                overflow: 'hidden',
+                                                boxShadow: '0 4px 10px rgba(0,0,0,0.08)',
+                                                // aspectRatio: '1/1', 
+                                                cursor: 'pointer'
                                             }}
-                                        />
-                                    </div>
-                                ))}
+                                        >
+                                            <img
+                                                src={`${import.meta.env.BASE_URL}${photo}`}
+                                                alt={`${item.label}-${idx}`}
+                                                style={{
+                                                    width: '100%',
+                                                    height: 'auto',
+                                                    display: 'block',
+                                                    transition: 'transform 0.3s ease'
+                                                }}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    </motion.div>
-                ))}
+                        </motion.div>
+                    );
+                })}
             </div>
 
             {/* Lightbox Modal */}
