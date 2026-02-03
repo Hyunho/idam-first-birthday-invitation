@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import InvitationMessage from './components/InvitationMessage';
 import Timeline from './components/Timeline';
 import Gallery from './components/Gallery';
+import GrowthGallery from './components/GrowthGallery';
 import Location from './components/Location';
 
 function App() {
@@ -16,8 +17,9 @@ function App() {
       <Hero />
       <InvitationMessage />
       <Timeline />
-      <Gallery />
+      {/* <Gallery /> */}
       <Location />
+      <GrowthGallery />
 
       <footer style={{
         textAlign: 'center',
