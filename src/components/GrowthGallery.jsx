@@ -3,6 +3,162 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Use data from configuration file
 import { growthGalleryData } from '../data/growthGalleryData';
 
+const PhotoCarousel = ({ photos, onImageClick }) => {
+    const scrollContainerRef = React.useRef(null);
+    const [showLeftArrow, setShowLeftArrow] = useState(false);
+    const [showRightArrow, setShowRightArrow] = useState(true);
+
+    const checkScroll = () => {
+        if (!scrollContainerRef.current) return;
+        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+        setShowLeftArrow(scrollLeft > 0);
+        // Allow a small buffer (e.g., 1px) for float calculation discrepancies
+        setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1);
+    };
+
+    React.useEffect(() => {
+        checkScroll();
+        const container = scrollContainerRef.current;
+        if (container) {
+            container.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+        }
+        return () => {
+            if (container) container.removeEventListener('scroll', checkScroll);
+            window.removeEventListener('resize', checkScroll);
+        };
+    }, [photos]);
+
+    const scroll = (direction) => {
+        if (!scrollContainerRef.current) return;
+        const container = scrollContainerRef.current;
+        // Scroll by about 80% of width to show next set clearly
+        const scrollAmount = container.clientWidth * 0.8;
+        container.scrollBy({
+            left: direction === 'left' ? -scrollAmount : scrollAmount,
+            behavior: 'smooth'
+        });
+    };
+
+    return (
+        <div style={{ position: 'relative' }}>
+            {/* Left Arrow */}
+            <AnimatePresence>
+                {showLeftArrow && (
+                    <motion.button
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => scroll('left')}
+                        style={{
+                            position: 'absolute',
+                            left: '10px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 10,
+                            background: 'rgba(255, 255, 255, 0.3)',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '32px',
+                            height: '32px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                            color: '#5d4037'
+                        }}
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </motion.button>
+                )}
+            </AnimatePresence>
+
+            {/* Right Arrow */}
+            <AnimatePresence>
+                {showRightArrow && (
+                    <motion.button
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => scroll('right')}
+                        style={{
+                            position: 'absolute',
+                            right: '10px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 10,
+                            background: 'rgba(255, 255, 255, 0.3)',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '32px',
+                            height: '32px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                            color: '#5d4037'
+                        }}
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </motion.button>
+                )}
+            </AnimatePresence>
+
+            <div
+                ref={scrollContainerRef}
+                style={{
+                    display: 'flex',
+                    gap: '10px',
+                    overflowX: 'auto',
+                    scrollSnapType: 'x mandatory',
+                    paddingBottom: '10px',
+                    // Hide scrollbar for Chrome, Safari and Opera
+                    '::-webkit-scrollbar': {
+                        display: 'none'
+                    },
+                    // Hide scrollbar for IE, Edge and Firefox
+                    msOverflowStyle: 'none',  /* IE and Edge */
+                    scrollbarWidth: 'none',  /* Firefox */
+                }}
+            >
+                {photos.map((photo, idx) => (
+                    <div
+                        key={idx}
+                        onClick={() => onImageClick(`${import.meta.env.BASE_URL}${photo}`)}
+                        style={{
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            boxShadow: '0 4px 10px rgba(0,0,0,0.08)',
+                            cursor: 'pointer',
+                            flex: '0 0 85%', // Show mostly the first one, hint at second
+                            scrollSnapAlign: 'start'
+                        }}
+                    >
+                        <img
+                            src={`${import.meta.env.BASE_URL}${photo}`}
+                            alt={`growth-gallery-${idx}`}
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                display: 'block',
+                                transition: 'transform 0.3s ease',
+                                aspectRatio: '3 / 4',
+                                objectFit: 'cover'
+                            }}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const GrowthGallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -125,48 +281,7 @@ const GrowthGallery = () => {
                                     </span>
                                 </div>
 
-                                <div style={{
-                                    display: 'flex',
-                                    gap: '10px',
-                                    overflowX: 'auto',
-                                    scrollSnapType: 'x mandatory',
-                                    paddingBottom: '10px',
-                                    // Hide scrollbar for Chrome, Safari and Opera
-                                    '::-webkit-scrollbar': {
-                                        display: 'none'
-                                    },
-                                    // Hide scrollbar for IE, Edge and Firefox
-                                    msOverflowStyle: 'none',  /* IE and Edge */
-                                    scrollbarWidth: 'none',  /* Firefox */
-                                }}>
-                                    {item.photos.map((photo, idx) => (
-                                        <div
-                                            key={idx}
-                                            onClick={() => setSelectedImage(`${import.meta.env.BASE_URL}${photo}`)}
-                                            style={{
-                                                borderRadius: '8px',
-                                                overflow: 'hidden',
-                                                boxShadow: '0 4px 10px rgba(0,0,0,0.08)',
-                                                cursor: 'pointer',
-                                                flex: '0 0 90%', // Show mostly the first one, hint at second
-                                                scrollSnapAlign: 'start'
-                                            }}
-                                        >
-                                            <img
-                                                src={`${import.meta.env.BASE_URL}${photo}`}
-                                                alt={`${item.label}-${idx}`}
-                                                style={{
-                                                    width: '100%',
-                                                    height: 'auto',
-                                                    display: 'block',
-                                                    transition: 'transform 0.3s ease',
-                                                    aspectRatio: '3 / 4', // Enforce consistent aspect ratio if needed, purely visual
-                                                    objectFit: 'cover'
-                                                }}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                                <PhotoCarousel photos={item.photos} onImageClick={setSelectedImage} />
                             </div>
                         </motion.div>
                     );
