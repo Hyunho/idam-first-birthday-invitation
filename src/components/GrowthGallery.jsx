@@ -126,9 +126,18 @@ const GrowthGallery = () => {
                                 </div>
 
                                 <div style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: '1fr',
-                                    gap: '15px',
+                                    display: 'flex',
+                                    gap: '10px',
+                                    overflowX: 'auto',
+                                    scrollSnapType: 'x mandatory',
+                                    paddingBottom: '10px',
+                                    // Hide scrollbar for Chrome, Safari and Opera
+                                    '::-webkit-scrollbar': {
+                                        display: 'none'
+                                    },
+                                    // Hide scrollbar for IE, Edge and Firefox
+                                    msOverflowStyle: 'none',  /* IE and Edge */
+                                    scrollbarWidth: 'none',  /* Firefox */
                                 }}>
                                     {item.photos.map((photo, idx) => (
                                         <div
@@ -138,8 +147,9 @@ const GrowthGallery = () => {
                                                 borderRadius: '8px',
                                                 overflow: 'hidden',
                                                 boxShadow: '0 4px 10px rgba(0,0,0,0.08)',
-                                                // aspectRatio: '1/1', 
-                                                cursor: 'pointer'
+                                                cursor: 'pointer',
+                                                flex: '0 0 90%', // Show mostly the first one, hint at second
+                                                scrollSnapAlign: 'start'
                                             }}
                                         >
                                             <img
@@ -149,7 +159,9 @@ const GrowthGallery = () => {
                                                     width: '100%',
                                                     height: 'auto',
                                                     display: 'block',
-                                                    transition: 'transform 0.3s ease'
+                                                    transition: 'transform 0.3s ease',
+                                                    aspectRatio: '3 / 4', // Enforce consistent aspect ratio if needed, purely visual
+                                                    objectFit: 'cover'
                                                 }}
                                             />
                                         </div>
