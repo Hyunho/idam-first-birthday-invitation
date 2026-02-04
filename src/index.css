@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@300;400;700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --bg-color: #fdfbf7;
   --text-color: #5d4037;
@@ -28,15 +32,18 @@ body {
 
 #root {
   width: 100%;
-  max-width: 480px; /* Mobile-first container */
+  max-width: 480px;
+  /* Mobile-first container */
   background-color: #fff;
   min-height: 100vh;
-  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow-x: hidden;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--font-serif);
   font-weight: 700;
   line-height: 1.3;
