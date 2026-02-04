@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Use data from configuration file
 import { growthGalleryData } from '../data/growthGalleryData';
 
-const PhotoCarousel = ({ photos, onImageClick }) => {
+const PhotoCarousel = ({ photos }) => {
     const scrollContainerRef = React.useRef(null);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
     const [showRightArrow, setShowRightArrow] = useState(true);
@@ -130,12 +130,10 @@ const PhotoCarousel = ({ photos, onImageClick }) => {
                 {photos.map((photo, idx) => (
                     <div
                         key={idx}
-                        onClick={() => onImageClick(`${import.meta.env.BASE_URL}${photo}`)}
                         style={{
                             borderRadius: '8px',
                             overflow: 'hidden',
                             boxShadow: '0 4px 10px rgba(0,0,0,0.08)',
-                            cursor: 'pointer',
                             flex: '0 0 85%', // Show mostly the first one, hint at second
                             scrollSnapAlign: 'start'
                         }}
@@ -160,7 +158,6 @@ const PhotoCarousel = ({ photos, onImageClick }) => {
 };
 
 const GrowthGallery = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
 
     const milestones = growthGalleryData;
 
@@ -281,64 +278,12 @@ const GrowthGallery = () => {
                                     </span>
                                 </div>
 
-                                <PhotoCarousel photos={item.photos} onImageClick={setSelectedImage} />
+                                <PhotoCarousel photos={item.photos} />
                             </div>
                         </motion.div>
                     );
                 })}
             </div>
-
-            {/* Lightbox Modal */}
-            <AnimatePresence>
-                {selectedImage && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setSelectedImage(null)}
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            background: 'rgba(0,0,0,0.9)',
-                            zIndex: 1000,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '2rem'
-                        }}
-                    >
-                        <motion.img
-                            src={selectedImage}
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 0.8 }}
-                            style={{
-                                maxWidth: '100%',
-                                maxHeight: '90vh',
-                                borderRadius: '8px',
-                                boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
-                            }}
-                        />
-                        <button
-                            style={{
-                                position: 'absolute',
-                                top: '20px',
-                                right: '20px',
-                                background: 'transparent',
-                                border: 'none',
-                                color: '#fff',
-                                fontSize: '2rem',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            ✕
-                        </button>
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </section>
     );
 };
