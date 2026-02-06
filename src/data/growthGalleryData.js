@@ -261,7 +261,7 @@ export const growthGalleryData = [
     },
     {
         "type": "milestone",
-        "label": "D+28",
+        "label": "D+280",
         "date": "280 Days",
         "photos": [
             "images/growth/280-1.jpeg",
