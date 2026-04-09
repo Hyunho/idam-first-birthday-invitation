@@ -277,8 +277,25 @@ const GrowthGallery = () => {
                                         {item.date}
                                     </span>
                                 </div>
-
-                                <PhotoCarousel photos={item.photos} />
+                                {item.photos && item.photos.length > 0 ? (
+                                    <PhotoCarousel photos={item.photos} />
+                                ) : item.placeholderMessage ? (
+                                    <div style={{
+                                        backgroundColor: '#fafafa',
+                                        padding: '4rem 1.5rem',
+                                        borderRadius: '8px',
+                                        border: '1px dashed #d4a373',
+                                        color: '#5d4037',
+                                        textAlign: 'center',
+                                        fontFamily: 'var(--font-serif)',
+                                        fontSize: '1.1rem',
+                                        lineHeight: '1.6',
+                                        whiteSpace: 'pre-wrap',
+                                        boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
+                                    }}>
+                                        {item.placeholderMessage}
+                                    </div>
+                                ) : null}
                             </div>
                         </motion.div>
                     );

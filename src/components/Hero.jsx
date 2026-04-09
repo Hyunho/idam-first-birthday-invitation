@@ -19,20 +19,23 @@ const Hero = () => {
             >
                 <div style={{
                     marginBottom: '2rem',
-                    borderRadius: '50%',
+                    borderRadius: '24px',
                     overflow: 'hidden',
-                    width: '200px',
-                    height: '200px',
-                    margin: '0 auto 2rem',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                    width: '100%',
+                    maxWidth: '400px',
+                    aspectRatio: '3 / 4',
+                    margin: '0 auto 2.5rem',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.12)'
                 }}>
                     <img
-                        src={`${import.meta.env.BASE_URL}images/idam.jpg`}
+                        src={`${import.meta.env.BASE_URL}images/idam.jpeg`}
                         alt="이담"
                         style={{
                             width: '100%',
                             height: '100%',
-                            objectFit: 'cover'
+                            display: 'block',
+                            objectFit: 'cover',
+                            objectPosition: 'center'
                         }}
                     />
                 </div>
