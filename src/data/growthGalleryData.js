@@ -265,7 +265,61 @@ export const growthGalleryData = [
         "date": "280 Days",
         "photos": [
             "images/growth/280-1.jpeg",
-            "images/growth/280-2.jpeg",
+            "images/growth/280-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
+        "label": "D+290",
+        "date": "290 Days",
+        "photos": [
+            "images/growth/290-1.jpeg",
+            "images/growth/290-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
+        "label": "D+300",
+        "date": "300 Days",
+        "photos": [
+            "images/growth/300-1.jpeg",
+            "images/growth/300-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
+        "label": "D+310",
+        "date": "310 Days",
+        "photos": [
+            "images/growth/310-1.jpeg",
+            "images/growth/310-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
+        "label": "D+320",
+        "date": "320 Days",
+        "photos": [
+            "images/growth/320-1.jpeg",
+            "images/growth/320-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
+        "label": "D+330",
+        "date": "330 Days",
+        "photos": [
+            "images/growth/330-1.jpeg",
+            "images/growth/330-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
+        "label": "D+340",
+        "date": "340 Days",
+        "photos": [
+            "images/growth/340-1.jpeg",
+            "images/growth/340-2.jpeg"
         ]
     }
 ];
