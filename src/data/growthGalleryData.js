@@ -324,6 +324,15 @@ export const growthGalleryData = [
     },
     {
         "type": "milestone",
+        "label": "D+350",
+        "date": "350 Days",
+        "photos": [
+            "images/growth/350-1.jpeg",
+            "images/growth/350-2.jpeg"
+        ]
+    },
+    {
+        "type": "milestone",
         "label": "D+362",
         "date": "362 Days",
         "placeholderMessage": "362일의 모습은\n돌잔치 현장에서 직접 확인해 주세요! ☺️"
